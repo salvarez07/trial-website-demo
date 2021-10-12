@@ -25,14 +25,14 @@
         const searchInterface = document.querySelector("#search");
 
         await searchInterface.initialize({
-          accessToken: "xx64c46a67-6405-41b6-9f10-1e551cbeef82",
-          organizationId: "bestbuycommercedemo2020i4xxjh61",
+          accessToken: 'xxed327f95-ad2c-454f-ae9d-e4b08098553f',
+          organizationId: 'trialdemowebja9n0qm8',
           analytics: {
             enabled: false,
           },
         });
 
-        searchInterface.pipeline = "Search";
+        searchInterface.pipeline = "Website Search";
 
         searchInterface.executeFirstSearch();
       })();
@@ -49,44 +49,9 @@
       </div>
       <atomic-search-box></atomic-search-box>
       <atomic-facet-manager>
-        <atomic-category-facet
-          class="atomic-facet-css"
-          field="ec_category"
-          label="Categories"
-          delimiting-character="|"
-        >
-        </atomic-category-facet>
-
-        <atomic-numeric-facet
-          class="atomic-facet-css"
-          field="ec_price"
-          label="Price"
-          with-input="integer"
-        >
-          <atomic-numeric-range start="0" end="50"
-            ><atomic-format-currency currency="USD"></atomic-format-currency
-          ></atomic-numeric-range>
-          <atomic-numeric-range start="50" end="150"
-            ><atomic-format-currency currency="USD"></atomic-format-currency
-          ></atomic-numeric-range>
-          <atomic-numeric-range start="150" end="500"
-            ><atomic-format-currency currency="USD"></atomic-format-currency
-          ></atomic-numeric-range>
-          <atomic-numeric-range start="500" end="2000"
-            ><atomic-format-currency currency="USD"></atomic-format-currency
-          ></atomic-numeric-range>
-          <atomic-numeric-range start="2000" end="10000"
-            ><atomic-format-currency currency="USD"></atomic-format-currency
-          ></atomic-numeric-range>
-        </atomic-numeric-facet>
-
-        <atomic-rating-facet
-          class="atomic-facet-css"
-          field="ec_rating"
-          label="Rating"
-          number-of-intervals="5"
-        >
-        </atomic-rating-facet>
+        <atomic-facet class="atomic-facet-css" field="source" label="Content type"></atomic-facet>
+        <atomic-facet class="atomic-facet-css" field="author" label="Author"></atomic-facet>
+        <atomic-facet class="atomic-facet-css" field="concepts" label="Tags"></atomic-facet>
       </atomic-facet-manager>
       <atomic-breadbox></atomic-breadbox>
       <div class="topbar">
@@ -105,82 +70,7 @@
       </div>
       <div class="results">
         <atomic-did-you-mean></atomic-did-you-mean>
-        <atomic-result-list
-          display="grid"
-          image="large"
-          fields-to-include="ec_image, ec_name, ec_price, ec_promo, ec_brand, ec_rating"
-        >
-          <atomic-result-template id="boosted">
-            <template>
-              <style>
-                .result-root.display-grid.image-large.image-large
-                  atomic-result-section-visual {
-                  aspect-ratio: unset !important;
-                }
-                .result-root.image-large atomic-result-section-visual,
-                .result-root.image-small atomic-result-section-visual {
-                  background-color: #fff !important;
-                  height: auto !important;
-                  border-radius: 0 !important;
-                }
-
-                .result-root.display-grid.image-large.image-large
-                  atomic-result-section-visual {
-                  width: 100% !important;
-                }
-
-                .result-body {
-                  padding-top: 20px;
-                }
-
-                atomic-result-image {
-                  height: 300px;
-                  display: block;
-                }
-
-                .price {
-                  color: #bb0628;
-                  font-weight: bold;
-                }
-
-                atomic-result-image img {
-                  max-width: 100%;
-                  text-align: center;
-                  height: auto;
-                  margin: 0px auto;
-                  transform: translateY(-50%);
-                  position: relative;
-                  top: 50%;
-                  max-height: 100%;
-                }
-              </style>
-              <atomic-result-section-visual>
-                <atomic-field-condition class="field" if-defined="ec_image">
-                  <atomic-result-image field="ec_image"></atomic-result-image>
-                </atomic-field-condition>
-                <div class="result-body">
-                  <atomic-field-condition class="field" if-defined="ec_name">
-                    <atomic-result-text field="ec_name"></atomic-result-text>
-                  </atomic-field-condition>
-
-                  <atomic-field-condition class="field" if-defined="ec_rating">
-                    <atomic-result-rating
-                      field="ec_rating"
-                    ></atomic-result-rating>
-                  </atomic-field-condition>
-
-                  <atomic-field-condition class="field" if-defined="ec_price">
-                    <div>
-                      <atomic-result-number class="price" field="ec_price">
-                        <atomic-format-currency currency="USD">
-                        </atomic-format-currency>
-                      </atomic-result-number>
-                    </div>
-                  </atomic-field-condition>
-                </div>
-              </atomic-result-section-visual>
-            </template>
-          </atomic-result-template>
+        <atomic-result-list fields-to-include="title, description, concepts, excerpt, author">
         </atomic-result-list>
       </div>
       <div class="pagination">
