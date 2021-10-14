@@ -25,8 +25,8 @@
         const searchInterface = document.querySelector("#search");
 
         await searchInterface.initialize({
-          accessToken: 'xxed327f95-ad2c-454f-ae9d-e4b08098553f',
-          organizationId: 'trialdemowebja9n0qm8',
+          accessToken: "xxed327f95-ad2c-454f-ae9d-e4b08098553f",
+          organizationId: "trialdemowebja9n0qm8",
           analytics: {
             enabled: false,
           },
@@ -49,9 +49,17 @@
       </div>
       <atomic-search-box></atomic-search-box>
       <atomic-facet-manager>
-        <atomic-facet class="atomic-facet-css" field="source" label="Content type"></atomic-facet>
-        <atomic-facet class="atomic-facet-css" field="author" label="Author"></atomic-facet>
-        <atomic-facet class="atomic-facet-css" field="concepts" label="Tags"></atomic-facet>
+        <atomic-facet field="source" label="Content type"></atomic-facet>
+        <atomic-facet field="author" label="Author"></atomic-facet>
+        <atomic-facet field="concepts" label="Tags"></atomic-facet>
+        <atomic-numeric-facet field="course_duration" label="Course duration">
+          <atomic-format-unit unit="minute"></atomic-format-unit>
+          <!-- TODO: add custom ranges -->
+        </atomic-numeric-facet>
+        <atomic-numeric-facet field="ytvideoduration" label="Video duration">
+          <atomic-format-unit unit="second"></atomic-format-unit>
+          <!-- TODO: add custom ranges -->
+        </atomic-numeric-facet>
       </atomic-facet-manager>
       <atomic-breadbox></atomic-breadbox>
       <div class="topbar">
@@ -70,11 +78,16 @@
       </div>
       <div class="results">
         <atomic-did-you-mean></atomic-did-you-mean>
-        <atomic-result-list fields-to-include="title, description, concepts, excerpt, author">
+        <atomic-result-list
+          fields-to-include="title, description, concepts, excerpt, author"
+        >
         </atomic-result-list>
       </div>
       <div class="pagination">
-        <atomic-results-per-page initial-choice="15" choices-displayed="15, 30, 50"></atomic-results-per-page>
+        <atomic-results-per-page
+          initial-choice="15"
+          choices-displayed="15, 30, 50"
+        ></atomic-results-per-page>
         <atomic-load-more-results></atomic-load-more-results>
       </div>
       <div class="status">
