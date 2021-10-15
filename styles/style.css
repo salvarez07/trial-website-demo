@@ -108,8 +108,8 @@ atomic-breadbox {
   display: none;
 }
 
-atomic-results-per-page {
-  display: none;
+atomic-facet[field="concepts"]::part(value-label) {
+  text-transform: capitalize;
 }
 
 @media only screen and (min-width: 1024px) {

@@ -79,15 +79,100 @@
       <div class="results">
         <atomic-did-you-mean></atomic-did-you-mean>
         <atomic-result-list
-          fields-to-include="title, description, concepts, excerpt, author"
+          image="small"
+          fields-to-include="title, description, concepts, excerpt, author, ytthumbnailurl, sourcetype, course_image"
         >
+          <atomic-result-template>
+            <template>
+              <style>
+                .field {
+                  display: inline-flex;
+                  white-space: nowrap;
+                  align-items: center;
+                }
+
+                .field-label {
+                  font-weight: bold;
+                  margin-right: 0.25rem;
+                }
+
+                atomic-result-section-visual {
+                  --atomic-neutral: transparent;
+                  ----atomic-border-radius-xl: 0px;
+                }
+
+                atomic-result-section-visual img {
+                  border-radius: 1rem;
+                }
+              </style>
+              <atomic-result-section-visual>
+                <atomic-field-condition
+                  must-match-source="Coveo - YouTube Playlists"
+                >
+                  <atomic-result-image
+                    field="ytthumbnailurl"
+                  ></atomic-result-image>
+                </atomic-field-condition>
+                <atomic-field-condition
+                  must-match-source="Coveo - Academy Courses"
+                >
+                  <atomic-result-image
+                    field="course_image"
+                  ></atomic-result-image>
+                </atomic-field-condition>
+              </atomic-result-section-visual>
+              <atomic-result-section-badges>
+                <atomic-result-badge field="sourcetype"></atomic-result-badge>
+              </atomic-result-section-badges>
+              <atomic-result-section-title>
+                <atomic-result-link></atomic-result-link>
+              </atomic-result-section-title>
+              <atomic-result-section-title-metadata>
+                <atomic-result-printable-uri></atomic-result-printable-uri>
+              </atomic-result-section-title-metadata>
+              <atomic-result-section-excerpt>
+                <atomic-result-text field="excerpt"></atomic-result-text>
+              </atomic-result-section-excerpt>
+              <atomic-result-section-bottom-metadata>
+                <atomic-result-fields-list>
+                  <span class="field">
+                    <span class="field-label">
+                      <atomic-text value="source"></atomic-text>:
+                    </span>
+                    <atomic-result-text field="source"></atomic-result-text>
+                  </span>
+
+                  <span class="field">
+                    <span class="field-label">
+                      <atomic-text value="language"></atomic-text>:
+                    </span>
+                    <atomic-result-multi-value-text
+                      field="language"
+                    ></atomic-result-multi-value-text>
+                  </span>
+
+                  <span class="field">
+                    <span class="field-label"> Date: </span>
+                    <atomic-result-date></atomic-result-date>
+                  </span>
+
+                  <span class="field">
+                    <span class="field-label"> Tags: </span>
+                    <!-- Concepts are not returned as an array -->
+                    <atomic-result-multi-value-text
+                      field="concepts"
+                    ></atomic-result-multi-value-text>
+                  </span>
+                </atomic-result-fields-list>
+              </atomic-result-section-bottom-metadata>
+            </template>
+          </atomic-result-template>
+          <atomic-result-template must-match-source="Coveo - Blog">
+            <template>Blog</template>
+          </atomic-result-template>
         </atomic-result-list>
       </div>
       <div class="pagination">
-        <atomic-results-per-page
-          initial-choice="15"
-          choices-displayed="15, 30, 50"
-        ></atomic-results-per-page>
         <atomic-load-more-results></atomic-load-more-results>
       </div>
       <div class="status">
