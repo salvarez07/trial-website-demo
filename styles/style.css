@@ -108,14 +108,15 @@ atomic-breadbox {
   display: none;
 }
 
-atomic-results-per-page {
-  display: none;
+atomic-facet[field="concepts"]::part(value-label) {
+  text-transform: capitalize;
 }
 
 @media only screen and (min-width: 1024px) {
   atomic-search-interface {
     column-gap: var(--spacing);
     grid-template-columns: 1fr minmax(150px, 325px) minmax(500px, 1100px) 1fr;
+    grid-auto-flow: column;
     grid-template-areas:
       ". logo   search      ."
       ". facets breadbox ."

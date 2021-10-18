@@ -25,14 +25,9 @@
         const searchInterface = document.querySelector("#search");
 
         await searchInterface.initialize({
-          accessToken: 'xxed327f95-ad2c-454f-ae9d-e4b08098553f',
-          organizationId: 'trialdemowebja9n0qm8',
-          analytics: {
-            enabled: false,
-          },
+          accessToken: "xxed327f95-ad2c-454f-ae9d-e4b08098553f",
+          organizationId: "trialdemowebja9n0qm8",
         });
-
-        searchInterface.pipeline = "Website Search";
 
         searchInterface.executeFirstSearch();
       })();
@@ -43,15 +38,53 @@
     <div class="demo-banner">
       <span>This is a demo search page built with <u>Coveo</u></span>
     </div>
-    <atomic-search-interface id="search">
+    <atomic-search-interface
+      id="search"
+      analytics="false"
+      pipeline="Website Search"
+    >
       <div class="logo">
         <img src="images/CoveoLogo.png" />
       </div>
       <atomic-search-box></atomic-search-box>
       <atomic-facet-manager>
-        <atomic-facet class="atomic-facet-css" field="source" label="Content type"></atomic-facet>
-        <atomic-facet class="atomic-facet-css" field="author" label="Author"></atomic-facet>
-        <atomic-facet class="atomic-facet-css" field="concepts" label="Tags"></atomic-facet>
+        <atomic-facet field="source" label="Content type"></atomic-facet>
+        <atomic-facet field="author" label="Author"></atomic-facet>
+        <atomic-facet field="concepts" label="Tags"></atomic-facet>
+        <atomic-numeric-facet field="course_duration" label="Course duration">
+          <atomic-numeric-range
+            start="0"
+            end="3"
+            label="Short"
+          ></atomic-numeric-range>
+          <atomic-numeric-range
+            start="3"
+            end="10"
+            label="Medium"
+          ></atomic-numeric-range>
+          <atomic-numeric-range
+            start="10"
+            end="60"
+            label="Long"
+          ></atomic-numeric-range>
+        </atomic-numeric-facet>
+        <atomic-numeric-facet field="ytvideoduration" label="Video duration">
+          <atomic-numeric-range
+            start="0"
+            end="300"
+            label="Short"
+          ></atomic-numeric-range>
+          <atomic-numeric-range
+            start="300"
+            end="1200"
+            label="Medium"
+          ></atomic-numeric-range>
+          <atomic-numeric-range
+            start="1200"
+            end="100000"
+            label="Long"
+          ></atomic-numeric-range>
+        </atomic-numeric-facet>
       </atomic-facet-manager>
       <atomic-breadbox></atomic-breadbox>
       <div class="topbar">
@@ -70,11 +103,141 @@
       </div>
       <div class="results">
         <atomic-did-you-mean></atomic-did-you-mean>
-        <atomic-result-list fields-to-include="title, description, concepts, excerpt, author">
+        <atomic-result-list
+          image="large"
+          fields-to-include="title, description, concepts, excerpt, author, ytthumbnailurl, sourcetype, course_image"
+        >
+          <atomic-result-template>
+            <template>
+              <style>
+                .field {
+                  display: inline-flex;
+                  white-space: nowrap;
+                  align-items: center;
+                }
+
+                .field-label {
+                  font-weight: bold;
+                  margin-right: 0.25rem;
+                }
+
+                atomic-result-section-visual {
+                  --atomic-neutral: transparent;
+                  --atomic-border-radius-xl: 0px;
+                }
+
+                atomic-result-section-visual img {
+                  border-radius: 1rem;
+                }
+
+                .boosted {
+                  display: flex;
+                  align-items: center;
+                  padding: 10px;
+                  font-size: var(--atomic-text-base);
+                  font-weight: var(--atomic-font-normal);
+                  border: 1px solid #AEB0F1;
+                  border-radius: var(--atomic-border-radius-md);
+                }
+
+                .boosted .powered {
+                  flex-grow: 1;
+                  margin-left: 10px;
+                  color: #525296;
+                }
+
+                .boosted .score {
+                  color: #262646;
+                }
+                
+              </style>
+              <atomic-result-section-visual>
+                <atomic-field-condition
+                  must-match-source="Coveo - YouTube Playlists"
+                >
+                  <atomic-result-image
+                    field="ytthumbnailurl"
+                  ></atomic-result-image>
+                </atomic-field-condition>
+                <atomic-field-condition
+                  must-match-source="Coveo - Academy Courses"
+                >
+                  <atomic-result-image
+                    field="course_image"
+                  ></atomic-result-image>
+                </atomic-field-condition>
+              </atomic-result-section-visual>
+              <atomic-result-section-badges>
+                <atomic-result-badge field="sourcetype"></atomic-result-badge>
+              </atomic-result-section-badges>
+              <atomic-result-section-title>
+                <atomic-result-link></atomic-result-link>
+              </atomic-result-section-title>
+              <atomic-result-section-title-metadata>
+                <atomic-result-printable-uri></atomic-result-printable-uri>
+              </atomic-result-section-title-metadata>
+              <atomic-result-section-emphasized>
+                <div class="boosted">
+                  <svg
+                    width="18"
+                    height="22"
+                    viewBox="0 0 18 22"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1.68165 10.9046L8.69644 1.43468C9.27026 0.660027 10.5 1.06588 10.5 2.02991V8.49988C10.5 9.05216 10.9477 9.49988 11.5 9.49988H15.5148C16.3361 9.49988 16.8072 10.4351 16.3183 11.0951L9.30356 20.5651C8.72974 21.3397 7.5 20.9339 7.5 19.9698V13.4999C7.5 12.9476 7.05228 12.4999 6.5 12.4999H2.48521C1.6639 12.4999 1.19279 11.5646 1.68165 10.9046Z"
+                      stroke="#8787DB"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  <span class="powered">Ranking powered by machine learning</span>
+                  <span class="score">Item score: <atomic-result-number field="score"></atomic-result-number></span>
+                </div>
+              </atomic-result-section-emphasized>
+              <atomic-result-section-excerpt>
+                <atomic-result-text field="excerpt"></atomic-result-text>
+              </atomic-result-section-excerpt>
+              <atomic-result-section-bottom-metadata>
+                <atomic-result-fields-list>
+                  <span class="field">
+                    <span class="field-label">
+                      <atomic-text value="source"></atomic-text>:
+                    </span>
+                    <atomic-result-text field="source"></atomic-result-text>
+                  </span>
+
+                  <span class="field">
+                    <span class="field-label">
+                      <atomic-text value="language"></atomic-text>:
+                    </span>
+                    <atomic-result-multi-value-text
+                      field="language"
+                    ></atomic-result-multi-value-text>
+                  </span>
+
+                  <span class="field">
+                    <span class="field-label"> Date: </span>
+                    <atomic-result-date></atomic-result-date>
+                  </span>
+
+                  <span class="field">
+                    <span class="field-label"> Tags: </span>
+                    <atomic-result-multi-value-text
+                      field="concepts"
+                    ></atomic-result-multi-value-text>
+                  </span>
+                </atomic-result-fields-list>
+              </atomic-result-section-bottom-metadata>
+            </template>
+          </atomic-result-template>
+          <atomic-result-template must-match-source="Coveo - Blog">
+            <template>Blog</template>
+          </atomic-result-template>
         </atomic-result-list>
       </div>
       <div class="pagination">
-        <atomic-results-per-page initial-choice="15" choices-displayed="15, 30, 50"></atomic-results-per-page>
         <atomic-load-more-results></atomic-load-more-results>
       </div>
       <div class="status">
