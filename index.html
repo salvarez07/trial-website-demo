@@ -149,8 +149,12 @@
                 .boosted .score {
                   color: #262646;
                 }
+
+                atomic-result-section-visual#visual {
+                  aspect-ratio: auto;
+                }
               </style>
-              <atomic-result-section-visual>
+              <atomic-result-section-visual id="visual">
                 <atomic-field-condition
                   must-match-source="Coveo - YouTube Playlists"
                 >
@@ -176,7 +180,7 @@
                 <atomic-result-printable-uri></atomic-result-printable-uri>
               </atomic-result-section-title-metadata>
               <atomic-result-section-emphasized>
-                <atomic-field-condition must-match-is-top-result="true">
+                <atomic-field-condition must-match-is-top-result="true" must-match-is-recommendation="false">
                   <div class="boosted">
                     <svg
                       width="18"
