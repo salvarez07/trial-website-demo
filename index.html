@@ -38,11 +38,7 @@
     <div class="demo-banner">
       <span>This is a demo search page built with <u>Coveo</u></span>
     </div>
-    <atomic-search-interface
-      id="search"
-      analytics="false"
-      pipeline="Website Search"
-    >
+    <atomic-search-interface id="search" pipeline="Website Search">
       <div class="logo">
         <img src="images/CoveoLogo.png" />
       </div>
@@ -180,7 +176,10 @@
                 <atomic-result-printable-uri></atomic-result-printable-uri>
               </atomic-result-section-title-metadata>
               <atomic-result-section-emphasized>
-                <atomic-field-condition must-match-is-top-result="true" must-match-is-recommendation="false">
+                <atomic-field-condition
+                  must-match-is-top-result="true"
+                  must-match-is-recommendation="false"
+                >
                   <div class="boosted">
                     <svg
                       width="18"
