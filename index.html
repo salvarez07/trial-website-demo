@@ -30,6 +30,12 @@
         });
 
         searchInterface.executeFirstSearch();
+
+        searchInterface.i18n.addResourceBundle("en", "caption-source", {
+          "Coveo - Academy Courses": "Academy Courses",
+          "Coveo - Blog": "Blog",
+          "Coveo - YouTube Playlists": "YouTube Playlists",
+        });
       })();
     </script>
   </head>
@@ -44,7 +50,7 @@
       </div>
       <atomic-search-box></atomic-search-box>
       <atomic-facet-manager>
-        <atomic-facet field="source" label="Content type"></atomic-facet>
+        <atomic-facet field="source" label="Content type" display-values-as="link"></atomic-facet>
         <atomic-facet field="author" label="Author"></atomic-facet>
         <atomic-facet field="concepts" label="Topics"></atomic-facet>
         <atomic-numeric-facet field="course_duration" label="Course duration">
@@ -81,7 +87,11 @@
             label="Long"
           ></atomic-numeric-range>
         </atomic-numeric-facet>
-        <atomic-facet field="year" label="Year" display-values-as="box"></atomic-facet>
+        <atomic-facet
+          field="year"
+          label="Year"
+          display-values-as="box"
+        ></atomic-facet>
       </atomic-facet-manager>
       <atomic-breadbox></atomic-breadbox>
       <div class="topbar">
@@ -172,7 +182,7 @@
               </atomic-result-section-visual>
 
               <atomic-result-section-badges>
-                <atomic-result-badge field="sourcetype"></atomic-result-badge>
+                <atomic-result-badge field="source"></atomic-result-badge>
               </atomic-result-section-badges>
 
               <atomic-result-section-title>
